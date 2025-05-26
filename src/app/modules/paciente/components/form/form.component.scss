@@ -1,0 +1,70 @@
+// Contenedor del diálogo
+:host {
+    display: block;
+    font-family: 'Roboto', Arial, sans-serif;
+    color: #333;
+  }
+  
+  // Estilo para el título
+  h1[mat-dialog-title] {
+    font-weight: 700;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #1976d2; // Azul Material Design
+    text-align: center;
+  }
+  
+  // Estilo para los mat-form-field
+  mat-form-field.example-form-field {
+    width: 100%;
+    margin-bottom: 16px;
+  
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+  
+    .mat-form-field-label {
+      color: #555;
+    }
+  }
+  
+  // Radios y toggle
+  mat-radio-group {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 20px;
+  
+    mat-radio-button {
+      font-weight: 500;
+      color: #444;
+    }
+  }
+  
+  mat-slide-toggle {
+    font-weight: 500;
+    color: #444;
+    margin-top: 10px;
+  }
+  
+  // Botones en la parte inferior
+  div[mat-dialog-actions] {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+  
+    button {
+      min-width: 100px;
+      font-weight: 600;
+    }
+  }
+  
+  // Para los inputs tipo text y radio se vean uniformes y modernos
+  input[matInput] {
+    background: #fafafa;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+  

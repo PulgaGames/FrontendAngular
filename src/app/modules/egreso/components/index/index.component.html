@@ -1,0 +1,123 @@
+<div class="egreso-container">
+    <mat-toolbar>
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col-6">
+            <button (click)="crearEgreso()" mat-raised-button color="primary" class="my-3">
+              <mat-icon>add_circle_outline</mat-icon>
+              Crear
+            </button>
+          </div>
+          <div class="col-6">
+            <mat-form-field appearance="fill" class="my-2">
+              <mat-label>Buscar</mat-label>
+              <input
+                [(ngModel)]="textoBusqueda"
+                name="textoBusqueda"
+                (input)="onSearchChange($event)"
+                matInput
+              />
+              <button mat-icon-button matSuffix aria-label="Buscar" (click)="LeerTodo()">
+                <mat-icon>search</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-toolbar>
+  
+    <div class="content container-fluid">
+      <div class="row">
+        <div class="col">
+          <div class="mat-elevation-z8 table-container">
+            <table mat-table [dataSource]="dataSource" class="full-width-table">
+              <!-- Columna paciente -->
+              <ng-container matColumnDef="pacienteid">
+                <th mat-header-cell *matHeaderCellDef>Paciente</th>
+                <td mat-cell *matCellDef="let element">
+                    {{ getNombrePaciente(element) }}
+                </td>
+              </ng-container>
+  
+              <!-- Columna medicoid -->
+              <ng-container matColumnDef="medicoid">
+                <th mat-header-cell *matHeaderCellDef>Médico</th>
+                <td mat-cell *matCellDef="let element"> {{ getNombreMedico(element.medicoid) }} </td>
+              </ng-container>
+  
+              <!-- Columna Fecha ingreso-->
+              <ng-container matColumnDef="fechaingreso">
+                <th mat-header-cell *matHeaderCellDef>Fecha Ingreso</th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.ingreso?.fecha | date: 'short' }}
+                </td>
+               </ng-container>
+
+            <!-- Columna Fecha egreso-->
+              <ng-container matColumnDef="fechaegreso">
+                <th mat-header-cell *matHeaderCellDef>Fecha Egreso</th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.fecha | date: 'short' }}
+                </td>
+              </ng-container>
+
+              <!-- Columna Tratamiento-->
+              <ng-container matColumnDef="tratamiento">
+                <th mat-header-cell *matHeaderCellDef>Tratamiento</th>
+                <td mat-cell *matCellDef="let element"> {{element.tratamiento}} </td>
+              </ng-container>
+
+              <!-- Columna Numero de monto -->
+              <ng-container matColumnDef="monto">
+                <th mat-header-cell *matHeaderCellDef>Total servicios</th>
+                <td mat-cell *matCellDef="let element"> {{element.monto}} </td>
+              </ng-container>
+
+              <!-- Columna Acciones -->
+              <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                <td mat-cell *matCellDef="let element">
+                  <button
+                    (click)="eliminar(element.id, $event)"
+                    matTooltip="Eliminar Elemento"
+                    mat-icon-button
+                    color="warn"
+                    >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+  
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns;"
+                (click)="actualizarEgreso(row.id)"
+                class="clickable-row"
+              ></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" [attr.colSpan]="displayedColumns.length">
+                  <div class="mensaje-no-existen-datos">
+                    <mat-icon class="mx-3">error</mat-icon> No existen datos para mostrar.
+                  </div>
+                </td>
+              </tr>
+            </table>
+  
+            <mat-paginator
+              #paginator
+              class="demo-paginator"
+              (page)="cambiarPagina($event)"
+              [length]="cantidadTotal"
+              [pageSize]="cantidadPorPagina"
+              [showFirstLastButtons]="true"
+              [pageSizeOptions]="opcionesDePaginacion"
+              [pageIndex]="numeroPagina"
+            >
+            </mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
